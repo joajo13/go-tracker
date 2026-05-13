@@ -1,4 +1,4 @@
-.PHONY: help test test-race lint build run cover mocks migrate ci web-build clean
+.PHONY: help test test-race lint build run cover mocks migrate ci web-build web-dev web-test web-test-watch clean
 
 GO ?= go
 BIN := bin/agent
@@ -33,8 +33,17 @@ mocks: ## Regenerate gomock mocks (Phase 1+)
 migrate: ## Run database migrations (wired in Phase 1, no-op for now)
 	@echo "migrate target reserved for Phase 1 (goose). Skipping."
 
-web-build: ## Build the embedded frontend (Phase 4+)
+web-build: ## Build the embedded frontend
 	cd web && npm install && npm run build
+
+web-dev: ## Run frontend dev server (Vite, HMR)
+	cd web && npm run dev
+
+web-test: ## Run frontend tests one-shot
+	cd web && npm test -- --run
+
+web-test-watch: ## Run frontend tests in watch mode
+	cd web && npm test
 
 ci: lint test build ## Run the full local CI check
 
