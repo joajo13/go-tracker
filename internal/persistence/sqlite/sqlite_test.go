@@ -2,6 +2,7 @@ package sqlite_test
 
 import (
 	"context"
+	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -30,12 +31,22 @@ func TestOpen_RunsMigrationsOnFreshDatabase(t *testing.T) {
 func TestOpen_IsIdempotent(t *testing.T) {
 	t.Parallel()
 
-	db, err := sqlite.Open(context.Background(), ":memory:")
-	require.NoError(t, err)
-	t.Cleanup(func() { _ = db.Close() })
+	dsn := filepath.Join(t.TempDir(), "idem.db")
 
-	// Re-running Open against the same DSN should not error or duplicate work.
-	db2, err := sqlite.Open(context.Background(), ":memory:")
+	db1, err := sqlite.Open(context.Background(), dsn)
+	require.NoError(t, err)
+	require.NoError(t, db1.Close())
+
+	// Re-open the SAME database file. goose should detect that all
+	// migrations have already been applied and return without error.
+	db2, err := sqlite.Open(context.Background(), dsn)
 	require.NoError(t, err)
 	t.Cleanup(func() { _ = db2.Close() })
+
+	// Verify the table is still there from the first migration run.
+	var name string
+	row := db2.QueryRowContext(context.Background(),
+		`SELECT name FROM sqlite_master WHERE type='table' AND name='tickers'`)
+	require.NoError(t, row.Scan(&name))
+	assert.Equal(t, "tickers", name)
 }
