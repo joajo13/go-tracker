@@ -15,6 +15,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 
 	"github.com/joajo13/go-tracker/internal/api"
+	"github.com/joajo13/go-tracker/internal/web"
 )
 
 const shutdownTimeout = 5 * time.Second
@@ -84,6 +85,12 @@ func newRouter() http.Handler {
 	r.Use(middleware.Recoverer)
 
 	r.Handle("/healthz", api.HealthHandler())
+
+	if h, err := web.Handler(); err == nil {
+		r.Mount("/", h)
+	} else {
+		slog.Default().Error("failed to mount embedded frontend", "err", err)
+	}
 
 	return r
 }
