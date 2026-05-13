@@ -42,7 +42,7 @@ Files created in this phase:
 | `migrations/.gitkeep` | Goose migrations dir reserved (Phase 1). |
 | `scripts/.gitkeep` | Dev scripts dir reserved. |
 
-**Module path:** `github.com/juangiupponi/go-tracker` — change in Task 2 step 1 if your GitHub namespace differs.
+**Module path:** `github.com/joajo13/go-tracker` — change in Task 2 step 1 if your GitHub namespace differs.
 
 ---
 
@@ -248,15 +248,15 @@ Expected: clean commit, no test/lint runs yet (no Go code).
 - [ ] **Step 2.1: Initialize Go module**
 
 ```bash
-go mod init github.com/juangiupponi/go-tracker
+go mod init github.com/joajo13/go-tracker
 ```
 
-Expected output: `go: creating new go.mod: module github.com/juangiupponi/go-tracker`
+Expected output: `go: creating new go.mod: module github.com/joajo13/go-tracker`
 
 `go.mod` contents after this step:
 
 ```
-module github.com/juangiupponi/go-tracker
+module github.com/joajo13/go-tracker
 
 go 1.22
 ```
@@ -550,7 +550,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/juangiupponi/go-tracker/internal/api"
+	"github.com/joajo13/go-tracker/internal/api"
 )
 
 func TestHealthHandler_ReturnsOK(t *testing.T) {
@@ -746,7 +746,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"github.com/juangiupponi/go-tracker/internal/api"
+	"github.com/joajo13/go-tracker/internal/api"
 )
 
 const shutdownTimeout = 5 * time.Second
@@ -896,7 +896,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/juangiupponi/go-tracker/internal/domain"
+	"github.com/joajo13/go-tracker/internal/domain"
 )
 
 func TestParseAmount_ValidDecimal(t *testing.T) {
@@ -1221,7 +1221,7 @@ active plan.
 Requires Go 1.22+ and `make`. Optional: `golangci-lint` for linting.
 
 ```bash
-git clone https://github.com/juangiupponi/go-tracker.git
+git clone https://github.com/joajo13/go-tracker.git
 cd go-tracker
 cp .env.example .env  # edit if needed
 make ci               # lint + test + build
