@@ -13,7 +13,7 @@ import (
 func TestNewTicker_ValidCEDEAR(t *testing.T) {
 	t.Parallel()
 
-	tk, err := domain.NewTicker(domain.TickerInput{
+	tk, err := domain.NewTicker(&domain.TickerInput{
 		Symbol:           "AAPL",
 		Name:             "Apple CEDEAR",
 		Type:             domain.AssetTypeCEDEAR,
@@ -34,7 +34,7 @@ func TestNewTicker_ValidCEDEAR(t *testing.T) {
 func TestNewTicker_RejectsEmptySymbol(t *testing.T) {
 	t.Parallel()
 
-	_, err := domain.NewTicker(domain.TickerInput{
+	_, err := domain.NewTicker(&domain.TickerInput{
 		Symbol:       "",
 		Name:         "x",
 		Type:         domain.AssetTypeUSStock,
@@ -49,7 +49,7 @@ func TestNewTicker_RejectsEmptySymbol(t *testing.T) {
 func TestNewTicker_RejectsUnknownType(t *testing.T) {
 	t.Parallel()
 
-	_, err := domain.NewTicker(domain.TickerInput{
+	_, err := domain.NewTicker(&domain.TickerInput{
 		Symbol:       "AAPL",
 		Name:         "Apple",
 		Type:         "weird",
@@ -64,7 +64,7 @@ func TestNewTicker_RejectsUnknownType(t *testing.T) {
 func TestNewTicker_RejectsZeroPollInterval(t *testing.T) {
 	t.Parallel()
 
-	_, err := domain.NewTicker(domain.TickerInput{
+	_, err := domain.NewTicker(&domain.TickerInput{
 		Symbol:       "AAPL",
 		Name:         "Apple",
 		Type:         domain.AssetTypeUSStock,
@@ -79,7 +79,7 @@ func TestNewTicker_RejectsZeroPollInterval(t *testing.T) {
 func TestNewTicker_RejectsEmptySources(t *testing.T) {
 	t.Parallel()
 
-	_, err := domain.NewTicker(domain.TickerInput{
+	_, err := domain.NewTicker(&domain.TickerInput{
 		Symbol:       "AAPL",
 		Name:         "Apple",
 		Type:         domain.AssetTypeUSStock,
@@ -94,7 +94,7 @@ func TestNewTicker_RejectsEmptySources(t *testing.T) {
 func TestNewTicker_CEDEARWithoutRatioFails(t *testing.T) {
 	t.Parallel()
 
-	_, err := domain.NewTicker(domain.TickerInput{
+	_, err := domain.NewTicker(&domain.TickerInput{
 		Symbol:           "AAPL",
 		Name:             "Apple CEDEAR",
 		Type:             domain.AssetTypeCEDEAR,

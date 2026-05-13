@@ -42,7 +42,7 @@ type TickerInput struct {
 
 // NewTicker validates input and returns a Ticker with Active=true and a zero
 // CreatedAt (the repo assigns it on insert).
-func NewTicker(in TickerInput) (Ticker, error) {
+func NewTicker(in *TickerInput) (Ticker, error) {
 	if strings.TrimSpace(in.Symbol) == "" {
 		return Ticker{}, fmt.Errorf("%w: symbol is required", ErrInvalidTicker)
 	}
