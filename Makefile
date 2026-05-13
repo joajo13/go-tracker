@@ -1,4 +1,4 @@
-.PHONY: help test test-race lint build run cover mocks migrate ci web-build web-dev web-test web-test-watch clean
+.PHONY: help test test-race lint build run cover mocks migrate-up migrate-down ci web-build web-dev web-test web-test-watch clean
 
 GO ?= go
 BIN := bin/agent
@@ -27,11 +27,16 @@ build: ## Build the agent binary
 run: build ## Build and run the agent
 	./$(BIN)
 
-mocks: ## Regenerate gomock mocks (Phase 1+)
-	$(GO) generate ./...
+MOCKGEN ?= go run go.uber.org/mock/mockgen
 
-migrate: ## Run database migrations (wired in Phase 1, no-op for now)
-	@echo "migrate target reserved for Phase 1 (goose). Skipping."
+mocks: ## Regenerate gomock mocks
+	$(MOCKGEN) -source=internal/domain/ports.go -destination=internal/persistence/mocks/mock_repos.go -package=mocks
+
+migrate-up: ## Apply pending migrations to $$DB_PATH
+	$(GO) run ./cmd/agent --migrate-up
+
+migrate-down: ## Roll the latest migration back on $$DB_PATH
+	$(GO) run ./cmd/agent --migrate-down
 
 web-build: ## Build the embedded frontend and stage it for go:embed
 	cd web && npm install && npm run build
