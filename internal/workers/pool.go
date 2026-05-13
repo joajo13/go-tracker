@@ -91,7 +91,15 @@ func (p *Pool) handle(ctx context.Context, id int, job sources.PollJob) {
 
 	price, err := src.Fetch(fetchCtx, job.Symbol)
 	if err != nil {
-		if !errors.Is(err, context.Canceled) {
+		switch {
+		case errors.Is(err, context.Canceled):
+			// Pool shutting down — silent.
+		case errors.Is(err, context.DeadlineExceeded):
+			slog.Debug("fetch_timeout",
+				"source", job.Source,
+				"symbol", job.Symbol,
+				"ticker_id", job.TickerID)
+		default:
 			slog.Warn("fetch_failed",
 				"source", job.Source,
 				"symbol", job.Symbol,
