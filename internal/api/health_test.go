@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/juangiupponi/go-tracker/internal/api"
+	"github.com/joajo13/go-tracker/internal/api"
 )
 
 func TestHealthHandler_ReturnsOK(t *testing.T) {

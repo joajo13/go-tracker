@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/juangiupponi/go-tracker/internal/domain"
+	"github.com/joajo13/go-tracker/internal/domain"
 )
 
 func TestParseAmount_ValidDecimal(t *testing.T) {

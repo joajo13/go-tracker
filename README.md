@@ -23,7 +23,7 @@ active plan.
 Requires Go 1.22+. Optional: `make`, `golangci-lint`.
 
 ```bash
-git clone https://github.com/juangiupponi/go-tracker.git
+git clone https://github.com/joajo13/go-tracker.git
 cd go-tracker
 cp env.example.txt .env   # then edit if needed
 make ci                   # lint + test + build

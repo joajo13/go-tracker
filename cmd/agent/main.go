@@ -14,7 +14,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"github.com/juangiupponi/go-tracker/internal/api"
+	"github.com/joajo13/go-tracker/internal/api"
 )
 
 const shutdownTimeout = 5 * time.Second
