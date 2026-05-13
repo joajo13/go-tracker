@@ -49,6 +49,26 @@ commands directly.
 The `.env` template lives at `env.example.txt` (not `.env.example`) to
 avoid a local permission filter on `.env*` files in some agent harnesses.
 
+## Frontend (Phase 4)
+
+The dashboard lives in `web/` (Vite + React + TypeScript) and is embedded in
+the Go binary via `embed.FS`. The CSS design system comes from a Claude
+Design handoff bundle and is used verbatim — no Tailwind.
+
+```bash
+make web-dev          # Vite dev server with HMR (during view work)
+make web-test         # frontend tests one-shot
+make web-test-watch   # frontend tests in watch mode
+make web-build        # production build (writes web/dist/ and stages it
+                      # into internal/web/dist/ for go:embed to pick up)
+make build            # embeds whatever is currently at internal/web/dist/
+```
+
+For production: run `make web-build` before `make build`. A `.gitkeep` is
+tracked at `internal/web/dist/` so a fresh clone compiles even without
+running the frontend build first — the agent will serve only the placeholder
+until a real build is staged.
+
 ## Layout
 
 ```
