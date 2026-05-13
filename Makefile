@@ -33,8 +33,12 @@ mocks: ## Regenerate gomock mocks (Phase 1+)
 migrate: ## Run database migrations (wired in Phase 1, no-op for now)
 	@echo "migrate target reserved for Phase 1 (goose). Skipping."
 
-web-build: ## Build the embedded frontend
+web-build: ## Build the embedded frontend and stage it for go:embed
 	cd web && npm install && npm run build
+	@rm -rf internal/web/dist
+	@mkdir -p internal/web/dist
+	@cp -R web/dist/. internal/web/dist/
+	@touch internal/web/dist/.gitkeep
 
 web-dev: ## Run frontend dev server (Vite, HMR)
 	cd web && npm run dev

@@ -33,6 +33,10 @@ web/node_modules/
 web/dist/
 web/.vite/
 
+# Embedded frontend build artifacts (only .gitkeep is tracked)
+internal/web/dist/*
+!internal/web/dist/.gitkeep
+
 # SQLite local DB
 *.db
 *.sqlite
