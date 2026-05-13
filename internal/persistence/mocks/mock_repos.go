@@ -57,7 +57,7 @@ func (mr *MockTickerRepoMockRecorder) Get(ctx, id any) *gomock.Call {
 }
 
 // Insert mocks base method.
-func (m *MockTickerRepo) Insert(ctx context.Context, t domain.Ticker) (domain.TickerID, error) {
+func (m *MockTickerRepo) Insert(ctx context.Context, t *domain.Ticker) (domain.TickerID, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Insert", ctx, t)
 	ret0, _ := ret[0].(domain.TickerID)
@@ -111,7 +111,7 @@ func (m *MockPriceRepo) EXPECT() *MockPriceRepoMockRecorder {
 }
 
 // Insert mocks base method.
-func (m *MockPriceRepo) Insert(ctx context.Context, p domain.Price) error {
+func (m *MockPriceRepo) Insert(ctx context.Context, p *domain.Price) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Insert", ctx, p)
 	ret0, _ := ret[0].(error)
